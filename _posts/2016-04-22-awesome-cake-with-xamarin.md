@@ -6,6 +6,8 @@ published: true
 categories: xamarin cake
 ---
 
+*THIS IS WORK IN PROGRESS*
+
 This is planned to be a series of posts, describing some ways to be more productive when developing with Xamarin and outling some aspects of doing automatic testing and deployments easily.
 
 I will first go trough some basics on why you would want to automate your project:
