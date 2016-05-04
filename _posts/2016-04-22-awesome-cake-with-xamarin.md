@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Awesome Cake with Xamarin Part 1"
+title:	 "Awesome Cake with Xamarin Part 1"
 date:   2016-04-22 07:25:07 +0200
 published: true
 categories: xamarin cake
@@ -24,30 +24,36 @@ First and foremost the tool of choice here in this guide is [Cake](http://cakebu
 
 There are also lots of alternatives like Rake, psake, FAKE out there that you can choose from.
 
-### Installation
+### 1. Installation
 
-The easiest ways to use Cake in your project is to use their bootstrapper.
+*The instructions here is from their official [GitHub Page](https://github.com/cake-build/cake) so please use it as a reference as it may contain newer instructions*.
 
-**Windows**
+The easiest way to use Cake in your project is to use their bootstrapper. In your project directory, run this in your terminal of choice:
 
-	Invoke-WebRequest http://cakebuild.net/bootstrapper/windows -OutFile build.ps1
+#### Windows PowerShell
 
-**Linux**
+~~~powershell
+Invoke-WebRequest http://cakebuild.net/bootstrapper/windows -OutFile build.ps1
+~~~
 
-	curl -Lsfo build.sh http://cakebuild.net/bootstrapper/linux
+#### Linux
 
-**OS X**
+~~~console
+curl -Lsfo build.sh http://cakebuild.net/bootstrapper/linux
+~~~ 
 
-	curl -Lsfo build.sh http://cakebuild.net/bootstrapper/osx
+#### OS X
+~~~console
+curl -Lsfo build.sh http://cakebuild.net/bootstrapper/osx
+~~~
 
-This will download everything need to start running Cake buildscripts.
+It should download everything need to start running Cake buildscripts. Before you run the bootstrapper you need to set up a cake script.
 
-### Cake script
+### 2. Cake script
 
 The bootstrapper need a `build.cake` file to be able to run, so create one in the same directory as the bootstrapper.
 
-{% highlight csharp %}
-
+~~~csharp
 var target = Argument("target", "Default");
 
 Task("Default")
@@ -57,4 +63,46 @@ Task("Default")
 });
 
 RunTarget(target);
-{% endhighlight %}
+~~~
+
+### 3. Run it!
+
+##### Windows
+
+~~~powershell
+# Execute the bootstrapper script.
+./build.ps1
+~~~
+
+##### Linux / OS X
+
+~~~console
+# Set your script to be executable by changing permissions
+chmod +x build.sh
+
+# Execute the bootstrapper script.
+./build.sh
+~~~
+
+### Result
+You should now see your cake script running and this output:
+
+	Hello Ninja!
+
+Building your project with Cake
+-------------------------------
+The most important thing to be able to test things in your project is to build it.
+
+### Setup restore of dependencies with NuGet
+
+We will create a new Task in Cake that will handle the restoration of packages. The alias used is [NugetRestore](http://cakebuild.net/api/cake.common.tools.nuget/bdfa6572/a0e10885).
+
+~~~csharp
+Task("Nuget-Package-Restore")
+.Does(() =>
+{
+	// Path to Xamarin Solution
+	var solution = GetFiles("./src/Awesome.Xamarin.Project/*.sln");
+	NuGetRestore(appSolutions);  
+});
+~~~
