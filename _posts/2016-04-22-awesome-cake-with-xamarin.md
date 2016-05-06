@@ -16,6 +16,22 @@ I will first go trough some basics on why you would want to automate your projec
 2. **Better refactoring** - Unless you are doing TDD/BDD (you really should!), the more complex your application becomes, the less confident you will be to do refactoring. Without testing you won't know if something breaks when you change your code.
 3. **Save time** - Why do the boring work of building, preparing and uploading an app to App Store / Google Play? Let Cake do it for you.
 
+### Some general recommendations
+
+For the sake of this guide, I will make some assumptions about the project structure in your project. But in general you should try to follow this recommendations when building your projects to facilitate extensibility and good structure.
+
+~~~
+root directory/
+	..
+	src/ (main project code)
+	tests/ (all test projects)
+	tools/ (tools needed for testing and building, i.e cake)
+	build.sh (the bootstrap file for cake)
+	build.cake (the Cake file)
+	..
+~~~
+
+
 Zhe Buildtool
 ---------
 First and foremost the tool of choice here in this guide is [Cake](http://cakebuild.net).
